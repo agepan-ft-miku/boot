@@ -1,0 +1,8 @@
+flowchart TD
+    A["システム電源投入 / 所定の全体リセット"] --> B["CPU0のみリセット解除"]
+    B --> C["Boot ROM等"] --> D["BL2 EL3<br/>DDR・共有HW初期化 / BL31・BL33ロード"]
+    D --> E["BL31 cold<br/>EL3常駐環境 / GIC共有・CPU0初期化 / PSCI登録"]
+    E --> F["ERET → U-Boot / NS EL2"] --> G["Linux primary / CPU0"]
+    G --> H["PSCI CPU_ONでCPU1〜3を順次起動"]
+    R["CPU1〜3は初期ブート中リセット保持"] -.-> H
+    N["前提: AArch64 / BL32なし / 1クラスタ4CPU"] -.-> D

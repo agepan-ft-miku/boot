@@ -1,0 +1,12 @@
+flowchart LR
+    subgraph C["CPU0 / BL31 cold"]
+        A["gicv3_driver_init"] --> B["gicv3_distif_init"]
+        B --> D["gicv3_rdistif_init CPU0"] --> E["gicv3_cpuif_enable CPU0"]
+    end
+    subgraph W["対象CPU / BL31 warm"]
+        F["pwr_domain_on_finish"] --> G["汎用D-cache有効化: 本案"]
+        G --> H["pwr_domain_on_finish_late"]
+        H --> I["gicv3_rdistif_init 対象CPU"] --> J["gicv3_cpuif_enable 対象CPU"]
+    end
+    N["GICR対応は事前確定<br/>CPU別探索方式なら初期化前にprobe"] -.-> I
+    M["セカンダリでDistributor共有初期化を繰り返さない"] -.-> W

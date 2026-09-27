@@ -1,0 +1,27 @@
+sequenceDiagram
+    participant L as Linux / 稼働CPU m
+    participant P as BL31 / 要求元CPU m
+    participant H as SoC reset control
+    participant T as BL31 / 対象CPU n
+    participant K as Linux / 対象CPU n
+    L->>P: SMC CPU_ON(MPIDR n, NS entry PA, context ID)
+    P->>P: 検証・CPUロック・ON_PENDING
+    P->>H: pwr_domain_on(n): HW状態確認・ベクタ設定
+    Note over P,H: reset vector = sec_entrypoint (BL31 warm)
+    P->>H: 書き込み完了保証・対象CPUのみリセット解除
+    H->>T: bl31_warm_entrypoint
+    par 要求元
+        P->>P: pwr_domain_on成功後にNSコンテキストを初期化
+        P->>P: CPUロック解放
+        P-->>L: CPU_ONの結果
+    and 起動先
+        T->>T: A53・EL3・スタック・MMU初期化
+        T->>T: pwr_domain_on_finish()
+        T->>T: 本案では汎用処理でD-cache有効化
+        T->>T: pwr_domain_on_finish_late(): GICR / CPU IF
+        T->>T: アーキテクチャ準備・要求元ロックと同期
+        T->>K: ERET → secondary_entry
+        K->>K: CPU別初期化 → Online
+    end
+    Note over L,K: CPU_ONの復帰とLinux Onlineは別の完了点
+    Note over P,T: CPU0再ONはHW・OSが対応する場合のみ

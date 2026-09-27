@@ -1,0 +1,56 @@
+[
+  {
+    "path": "docs/diagrams/original/tf_a_v2_12_boot_power_flow.png",
+    "original_filename": "tf_a_v2_12_boot_power_flow.png",
+    "sha256": "df02f58127d7c3685a63354c457e8401fc142a88fc0079261ce4af40987e4e98",
+    "bytes": 2575580,
+    "width": 2624,
+    "height": 2398,
+    "note": "会話の最終表示図。CPU0条件は本文で補足する。"
+  },
+  {
+    "path": "docs/diagrams/original/tfa_v2_12_cpu_power_sequence_corrected.png",
+    "original_filename": "tfa_v2_12_cpu_power_sequence_corrected.png",
+    "sha256": "e48a6fcb878a07499d86707dff386d17f101d45abc138db6fd17a470ea5049e1",
+    "bytes": 743588,
+    "width": 2640,
+    "height": 2050,
+    "note": "CPU_ON/OFFの処理順序を整理した訂正版。CPU0制約は追加本文を参照。"
+  },
+  {
+    "path": "docs/diagrams/history/draft_block_diagram.png",
+    "original_filename": "a_clean_infographic_diagram_on_a_white_background.png",
+    "sha256": "75af3c4d89d286f11e89411fd100c07f0fb19b8bca017ae99cd9761716782ee3",
+    "bytes": 1659690,
+    "width": 1312,
+    "height": 1199,
+    "note": "試作図。CPU0 OFFとSYSTEM操作の混同等がある。"
+  },
+  {
+    "path": "docs/diagrams/history/draft_swimlane_01.png",
+    "original_filename": "a_wide_infographic_diagram_in_a_clean_technical_st.png",
+    "sha256": "d0274d62a8e29e1178bebb74235dabe4fb1174f3a8c17143e395f773165e0976",
+    "bytes": 1739464,
+    "width": 1536,
+    "height": 1024,
+    "note": "試作図。停止経路のU-Boot等の記載は採用しない。"
+  },
+  {
+    "path": "docs/diagrams/history/draft_swimlane_02.png",
+    "original_filename": "a_wide_technical_infographic_diagram_in_a_clean_ve.png",
+    "sha256": "8f222c9315786edb2ce7406e75a21eb140dc26ce0c20327a250cd52eea78769b",
+    "bytes": 1793936,
+    "width": 1536,
+    "height": 1024,
+    "note": "試作図。CPU_OFFを別CPUから発行する記載等は採用しない。"
+  },
+  {
+    "path": "docs/diagrams/history/layout_review.png",
+    "original_filename": "diagram_grid_review.png",
+    "sha256": "87278880a4feb743f645878cf2e9fe6eeabcfe8dd1fdf4637f4b5b7bc395fd23",
+    "bytes": 290191,
+    "width": 657,
+    "height": 520,
+    "note": "会話内のレイアウトレビュー資料。設計根拠として使用しない。"
+  }
+]

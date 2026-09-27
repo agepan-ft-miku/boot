@@ -1,0 +1,13 @@
+flowchart TD
+    A["対象CPUのLinux<br/>ホットプラグ停止準備"] --> B["対象CPU自身がSMC CPU_OFF"]
+    B --> C["psci_do_cpu_off<br/>pwr_domain_off_early: 任意の早期拒否"]
+    C --> D{"停止を許可するか"}
+    D -->|拒否| X["DENIED<br/>CPU0禁止はLinux側でも早期に扱う"]
+    D -->|許可| E["親ドメイン・ロック・状態協調"]
+    E --> F["psci_pwrdown_cpu<br/>アーキテクチャ・キャッシュ停止準備"]
+    F --> G["pwr_domain_off<br/>GIC CPU IF停止 / HW停止予約・準備"]
+    G --> H["汎用処理<br/>ロック解放 / affinity OFF反映・同期"]
+    H --> I["pwr_domain_pwr_down_wfi<br/>またはpsci_power_down_wfi"]
+    I --> J["SoC仕様に基づく安全なHW停止"]
+    J --> K["別CPUのCPU_ONでwarm再起動<br/>再始動手段があるCPUのみ"]
+    N["pwr_domain_offの途中で即時自己リセットしない<br/>WFIやリセット保持は物理電源断ではない"] -.-> G

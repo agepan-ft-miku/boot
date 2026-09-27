@@ -1,0 +1,14 @@
+flowchart TD
+    A["Linuxの終了・再起動処理<br/>最後の稼働CPUで実行"] --> B{"操作"}
+    B -->|SYSTEM_OFF| C["BL31 psci_system_off → system_off"]
+    C --> D{"電源断機構あり"}
+    D -->|あり| E["PMIC / 常時給電回路へ要求"] --> F["SoC物理電源OFF"]
+    D -->|なし| G["停止・通電継続のみ<br/>物理電源OFFは未対応"]
+    B -->|SYSTEM_RESET| H["BL31 psci_system_reset → system_reset"]
+    H --> I{"CPU0を含む全体リセットあり"}
+    I -->|あり| J["全体リセット / 対応Watchdog / 外部回路"]
+    J --> K["CPU0 cold起動<br/>Boot ROM等 → BL2 → BL31 → U-Boot → Linux"]
+    I -->|なし| L{"外部回路の自動電源サイクルあり"}
+    L -->|あり| M["OFF→自動ON"] --> K
+    L -->|なし| O["通常のHW再起動は未対応<br/>外部操作等が必要"]
+    N["CPU0個別リセット・CPU0単体OFFとは別機能<br/>通常の終了経路にU-Bootは入らない"] -.-> B
